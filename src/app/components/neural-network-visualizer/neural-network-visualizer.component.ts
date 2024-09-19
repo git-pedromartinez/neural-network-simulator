@@ -62,7 +62,7 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
   }
 
   async drawNeuralNetwork(ms: number = 0, flow: 'left' | 'right' = 'left') {
-    const neuronsPerLayer = [3, 4, 2]; // Ejemplo: 3 neuronas en la entrada, 4 en la capa oculta, 2 en la salida
+    const neuronsPerLayer = LAYERS; // Ejemplo: 3 neuronas en la entrada, 4 en la capa oculta, 2 en la salida
     const layerSpacing =
       this.canvas.nativeElement.width / (neuronsPerLayer.length + 1);
 
@@ -240,11 +240,7 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
     ];
 
     // Configuración de la red neuronal con función de activación sigmoide (por defecto)
-    const neuralNetwork: NeuralNetwork = new NeuralNetwork(
-      [2, 30, 1],
-      0.1,
-      10000
-    );
+    const neuralNetwork: NeuralNetwork = new NeuralNetwork(LAYERS, 0.1, 10000);
 
     // Función para probar la red neuronal con los conjuntos de datos
     function testNetwork(
@@ -281,6 +277,8 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
     }
   }
 }
+
+export const LAYERS = [2, 3, 1];
 
 export const DELAY_TIME = 250;
 
