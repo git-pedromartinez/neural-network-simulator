@@ -19,6 +19,12 @@ interface ConnectionData {
   // Define the properties for ConnectionData here
 }
 
+export const DELAY_TIME = 25;
+export const LAYERS = [2, 3, 1];
+export const RADIUS = 20;
+export const NEURON_SPACING = RADIUS; // Espacio estático entre neuronas
+export const CONNECTION_SPACING = RADIUS * 4; // Espacio estático entre conexiones
+
 @Component({
   selector: 'app-neural-network-visualizer',
   standalone: true,
@@ -32,7 +38,7 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
   private canvas!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
 
-  public timeDelay = 25;
+  public timeDelay = DELAY_TIME;
 
   private neurons: { point: NeuronPoint; data: NeuronData }[] = [];
   private connections: {
@@ -277,10 +283,6 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
     }
   }
 }
-
-export const LAYERS = [2, 3, 1];
-
-export const DELAY_TIME = 250;
 
 export function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
