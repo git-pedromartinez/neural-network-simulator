@@ -3,7 +3,7 @@ import { TestingNetworkData } from '../models';
 import { AND_DATA, OR_DATA, XOR_DATA } from './eg1.data';
 
 // Configuración de la red neuronal con función de activación sigmoide (por defecto)
-const neuralNetwork: NeuralNetwork = new NeuralNetwork([2, 300, 1], 0.1, 10000);
+const neuralNetwork: NeuralNetwork = new NeuralNetwork([2, 30, 1], 0.1, 10000);
 
 // Función para probar la red neuronal con los conjuntos de datos
 function testNetwork(
