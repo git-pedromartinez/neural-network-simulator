@@ -32,7 +32,7 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
   private canvas!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
 
-  public timeDelay = 100;
+  public timeDelay = 25;
 
   private neurons: { point: NeuronPoint; data: NeuronData }[] = [];
   private connections: {
