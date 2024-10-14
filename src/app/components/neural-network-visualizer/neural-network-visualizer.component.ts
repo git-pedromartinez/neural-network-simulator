@@ -45,6 +45,9 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
   }[] = [];
   private data: any;
 
+  public imaginaryWidth = 2000; // Ancho imaginario
+  public imaginaryHeight = 2000; // Alto imaginario
+
   @ViewChild(ZoomableCanvasDirective) canvasZoom!: ZoomableCanvasDirective;
 
   ngOnInit() {
@@ -87,13 +90,13 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
   }
 
   drawNeuralNetworkFromData(inputData: any, sizes: number[]) {
-    const layerSpacing = this.canvas.nativeElement.width / (sizes.length + 1);
+    const layerSpacing = this.imaginaryWidth / (sizes.length + 1);
     const zoomLevel = this.canvasZoom?.getZoomLevel() || 1;
     const offsetX = this.canvasZoom?.getOffsetX() || 0;
     const offsetY = this.canvasZoom?.getOffsetY() || 0;
 
     sizes.forEach((neurons, layerIndex) => {
-      const neuronSpacing = this.canvas.nativeElement.height / (neurons + 1);
+      const neuronSpacing = this.imaginaryHeight / (neurons + 1);
 
       for (let neuronIndex = 0; neuronIndex < neurons; neuronIndex++) {
         const x = (layerIndex + 1) * layerSpacing;
@@ -140,12 +143,9 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
         for (let k = 0; k < nextLayerNeurons; k++) {
           const x1 = (i + 1) * layerSpacing;
           const y1 =
-            (j + 1) *
-            (this.canvas.nativeElement.height / (currentLayerNeurons + 1));
+            (j + 1) * (this.imaginaryHeight / (currentLayerNeurons + 1));
           const x2 = (i + 2) * layerSpacing;
-          const y2 =
-            (k + 1) *
-            (this.canvas.nativeElement.height / (nextLayerNeurons + 1));
+          const y2 = (k + 1) * (this.imaginaryHeight / (nextLayerNeurons + 1));
           this.drawConnection(
             { x: x1, y: y1 },
             { x: x2, y: y2 },
