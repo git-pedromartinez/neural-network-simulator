@@ -57,9 +57,24 @@ export class ZoomableCanvasDirective implements OnInit {
   @HostListener('wheel', ['$event'])
   onWheel(event: WheelEvent): void {
     event.preventDefault();
-    this.scale += event.deltaY > 0 ? -this.scaleFactor : this.scaleFactor;
-    this.scale = Math.max(this.scale, 0.1);
-    this.component.updateVisualization();
+
+    const canvas = this.el.nativeElement;
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    const zoomFactor = event.deltaY > 0 ? -this.scaleFactor : this.scaleFactor;
+    const newScale = this.scale + zoomFactor;
+
+    if (newScale >= 0.1) {
+      const scaleRatio = newScale / this.scale;
+
+      this.posX = mouseX - (mouseX - this.posX) * scaleRatio;
+      this.posY = mouseY - (mouseY - this.posY) * scaleRatio;
+
+      this.scale = newScale;
+      this.component.updateVisualization();
+    }
   }
 
   zoomIn(): void {
