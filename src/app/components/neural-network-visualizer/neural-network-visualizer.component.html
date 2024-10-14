@@ -1,8 +1,42 @@
-<p>Time Delay: {{ timeDelay }}</p>
-<input type="number" [(ngModel)]="timeDelay" />
-<button (click)="play(timeDelay)">Play</button>
-<button (click)="play(timeDelay, 'left')">Left</button>
-<button (click)="play(timeDelay, 'right')">Right</button>
-<button (click)="playNeuralNetwork()">Test Neural Network</button>
-<br />
-<canvas #neuralCanvas width="800" height="600"></canvas>
+<div>
+  <div class="flex-center">
+    <input type="number" [(ngModel)]="timeDelay" />
+    <button (click)="play(timeDelay)">Play</button>
+    <button (click)="play(timeDelay, 'left')">Left</button>
+    <button (click)="play(timeDelay, 'right')">Right</button>
+    <button (click)="playNeuralNetwork()">Test Neural Network</button>
+  </div>
+  <br />
+  <div class="flex-between simulator-section">
+    <canvas
+      class="neuralCanvas"
+      #neuralCanvas
+      width="800"
+      height="600"
+    ></canvas>
+    <div class="pseudocodigo">
+      <div class="text">
+        <h2>Neural Network</h2>
+        <pre>
+ Si la salida de la neurona O es diferente al objetivo T
+     Calcular el error E como la diferencia entre T y O
+     Si el error E es mayor que un umbral ε
+         Actualizar el peso W:
+             W = W + (tasa de aprendizaje * E * entrada)
+     En otro caso
+         Mantener el peso sin cambios
+ En otro caso
+     No realizar ajustes en el peso
+                </pre
+        >
+      </div>
+      <div class="flex-center buttons">
+        <button>⏯️</button>
+        <button>⏹️</button>
+        <button>▶️</button>
+        <button>⏩</button>
+        <button>⏪</button>
+      </div>
+    </div>
+  </div>
+</div>

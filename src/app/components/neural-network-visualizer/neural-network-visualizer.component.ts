@@ -7,7 +7,7 @@ import {
 } from 'neural-network';
 
 interface NeuronData {
-  // Define the properties for NeuronData here
+ 
 }
 
 interface NeuronPoint {
@@ -16,14 +16,14 @@ interface NeuronPoint {
 }
 
 interface ConnectionData {
-  // Define the properties for ConnectionData here
+  
 }
 
-export const DELAY_TIME = 25;
-export const LAYERS = [2, 3, 1];
+export const DELAY_TIME = 0;
+export const LAYERS = [2, 3, 10, 15, 10, 5, 3, 1];
 export const RADIUS = 20;
-export const NEURON_SPACING = RADIUS; // Espacio estático entre neuronas
-export const CONNECTION_SPACING = RADIUS * 4; // Espacio estático entre conexiones
+export const NEURON_SPACING = RADIUS; // Espacio entre neuronas
+export const CONNECTION_SPACING = RADIUS * 4; // Espacio entre conexiones
 
 @Component({
   selector: 'app-neural-network-visualizer',
@@ -68,7 +68,7 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
   }
 
   async drawNeuralNetwork(ms: number = 0, flow: 'left' | 'right' = 'left') {
-    const neuronsPerLayer = LAYERS; // Ejemplo: 3 neuronas en la entrada, 4 en la capa oculta, 2 en la salida
+    const neuronsPerLayer = LAYERS; 
     const layerSpacing =
       this.canvas.nativeElement.width / (neuronsPerLayer.length + 1);
 
@@ -78,8 +78,8 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
     // Determinamos el orden de las capas para el renderizado de las neuronas
     const layerIndices =
       flow === 'left'
-        ? [...Array(neuronsPerLayer.length).keys()] // [0, 1, 2] para 'left'
-        : [...Array(neuronsPerLayer.length).keys()].reverse(); // [2, 1, 0] para 'right'
+        ? [...Array(neuronsPerLayer.length).keys()] 
+        : [...Array(neuronsPerLayer.length).keys()].reverse(); 
 
     // Primero dibujamos todas las neuronas en el orden determinado por `flow`
     for (const layerIndex of layerIndices) {
@@ -220,9 +220,10 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
   play(ms: number = 0, flow: 'left' | 'right' = 'left'): void {
     this.clearNeuralNetwork();
     this.drawNeuralNetwork(ms ?? DELAY_TIME, flow);
+    this.playNeuralNetwork()
   }
 
-  playNeuralNetwork(): void {
+  async playNeuralNetwork(): Promise<void> {
     // Datos de entrenamiento sobre funciones: XOR, AND y OR
     const AND_DATA: NeuralNetworkData[] = [
       { inputs: [0, 0], targets: [0] },
