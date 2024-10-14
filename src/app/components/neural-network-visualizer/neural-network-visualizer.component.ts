@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import XOR_TRAINING_history from './XOR_TRAINING_history.json';
 import { ZoomableCanvasDirective } from '../../directives/appZoomableCanvas';
@@ -24,7 +30,7 @@ export const CONNECTION_SPACING = RADIUS * 4;
   templateUrl: './neural-network-visualizer.component.html',
   styleUrls: ['./neural-network-visualizer.component.scss'],
 })
-export class NeuralNetworkVisualizerComponent implements OnInit {
+export class NeuralNetworkVisualizerComponent implements OnInit, AfterViewInit {
   @ViewChild('neuralCanvas', { static: true })
   private canvas!: ElementRef<HTMLCanvasElement>;
   private ctx!: CanvasRenderingContext2D;
@@ -45,8 +51,8 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
   }[] = [];
   private data: any;
 
-  public imaginaryWidth = 2000; // Ancho imaginario
-  public imaginaryHeight = 2000; // Alto imaginario
+  public imaginaryWidth = 800; // Ancho imaginario
+  public imaginaryHeight = 600; // Alto imaginario
 
   @ViewChild(ZoomableCanvasDirective) canvasZoom!: ZoomableCanvasDirective;
 
@@ -55,8 +61,15 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
     this.loadTrainingData();
   }
 
+  ngAfterViewInit(): void {
+    this.canvasZoom.centerCanvas(this.imaginaryWidth, this.imaginaryHeight);
+  }
+
   async loadTrainingData() {
     this.data = XOR_TRAINING_history;
+    const sizes = this.data.metaData.sizes.slice(1)
+    this.imaginaryHeight = (Math.max(...sizes) + 2) * 100;
+    this.imaginaryWidth = this.imaginaryHeight*1.2//(sizes.length + 1) * 100;
     this.initializeControls();
   }
 
@@ -233,6 +246,8 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
   }
 
   reset(): void {
-    this.canvasZoom.reset();
+    // this.canvasZoom.reset();
+    this.canvasZoom.centerCanvas(this.imaginaryWidth, this.imaginaryHeight);
+
   }
 }

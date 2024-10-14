@@ -105,4 +105,21 @@ export class ZoomableCanvasDirective implements OnInit {
   getOffsetY(): number {
     return this.posY;
   }
+
+  centerCanvas(contentWidth: number, contentHeight: number): void {
+    const canvas = this.el.nativeElement;
+    const canvasWidth = canvas.width;
+    const canvasHeight = canvas.height;
+
+    // Calculate the scale to fit the content within the canvas
+    const scaleX = canvasWidth / contentWidth;
+    const scaleY = canvasHeight / contentHeight;
+    this.scale = Math.min(scaleX, scaleY);
+
+    // Center the content
+    this.posX = (canvasWidth - contentWidth * this.scale) / 2;
+    this.posY = (canvasHeight - contentHeight * this.scale) / 2;
+
+    this.component.updateVisualization();
+  }
 }
