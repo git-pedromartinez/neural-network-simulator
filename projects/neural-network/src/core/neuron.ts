@@ -1,7 +1,14 @@
+/**
+ * Author: Pedro Martinez
+ * Email: id.pedromartinez@gmail.com
+ * Position: Senior Software Engineer
+ */
+
 import { ActivationFunctions } from "./activation-functions";
 import { ActivationFunction, ActivationFunctionDerivative } from "../models";
 
 export class Neuron {
+  identifier: string;
   weights: number[];
   bias: number;
   activationFunction: ActivationFunction;
@@ -10,8 +17,10 @@ export class Neuron {
   constructor(
     inputSize: number,
     activationFunction: ActivationFunction = ActivationFunctions.sigmoid,
-    activationDerivative: ActivationFunctionDerivative = ActivationFunctions.sigmoidDerivative
+    activationDerivative: ActivationFunctionDerivative = ActivationFunctions.sigmoidDerivative,
+    identifier: string = "Neuron"
   ) {
+    this.identifier = identifier;
     this.weights = Array.from({ length: inputSize }, () => Math.random() - 0.5);
     this.bias = Math.random() - 0.5;
     this.activationFunction = activationFunction;

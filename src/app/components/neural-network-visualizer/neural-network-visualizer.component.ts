@@ -220,69 +220,69 @@ export class NeuralNetworkVisualizerComponent implements OnInit {
   play(ms: number = 0, flow: 'left' | 'right' = 'left'): void {
     this.clearNeuralNetwork();
     this.drawNeuralNetwork(ms ?? DELAY_TIME, flow);
-    this.playNeuralNetwork()
+    // this.playNeuralNetwork()
   }
 
-  async playNeuralNetwork(): Promise<void> {
-    // Datos de entrenamiento sobre funciones: XOR, AND y OR
-    const AND_DATA: NeuralNetworkData[] = [
-      { inputs: [0, 0], targets: [0] },
-      { inputs: [0, 1], targets: [0] },
-      { inputs: [1, 0], targets: [0] },
-      { inputs: [1, 1], targets: [1] },
-    ];
+  // async playNeuralNetwork(): Promise<void> {
+  //   // Datos de entrenamiento sobre funciones: XOR, AND y OR
+  //   const AND_DATA: NeuralNetworkData[] = [
+  //     { inputs: [0, 0], targets: [0] },
+  //     { inputs: [0, 1], targets: [0] },
+  //     { inputs: [1, 0], targets: [0] },
+  //     { inputs: [1, 1], targets: [1] },
+  //   ];
 
-    const OR_DATA: NeuralNetworkData[] = [
-      { inputs: [0, 0], targets: [0] },
-      { inputs: [0, 1], targets: [1] },
-      { inputs: [1, 0], targets: [1] },
-      { inputs: [1, 1], targets: [1] },
-    ];
+  //   const OR_DATA: NeuralNetworkData[] = [
+  //     { inputs: [0, 0], targets: [0] },
+  //     { inputs: [0, 1], targets: [1] },
+  //     { inputs: [1, 0], targets: [1] },
+  //     { inputs: [1, 1], targets: [1] },
+  //   ];
 
-    const XOR_DATA: NeuralNetworkData[] = [
-      { inputs: [0, 0], targets: [0] },
-      { inputs: [0, 1], targets: [1] },
-      { inputs: [1, 0], targets: [1] },
-      { inputs: [1, 1], targets: [0] },
-    ];
+  //   const XOR_DATA: NeuralNetworkData[] = [
+  //     { inputs: [0, 0], targets: [0] },
+  //     { inputs: [0, 1], targets: [1] },
+  //     { inputs: [1, 0], targets: [1] },
+  //     { inputs: [1, 1], targets: [0] },
+  //   ];
 
-    // Configuración de la red neuronal con función de activación sigmoide (por defecto)
-    const neuralNetwork: NeuralNetwork = new NeuralNetwork(LAYERS, 0.1, 10000);
+  //   // Configuración de la red neuronal con función de activación sigmoide (por defecto)
+  //   const neuralNetwork: NeuralNetwork = new NeuralNetwork(LAYERS, 0.1, 10000);
 
-    // Función para probar la red neuronal con los conjuntos de datos
-    function testNetwork(
-      network: NeuralNetwork,
-      testingNetworkData: TestingNetworkData[]
-    ): void {
-      testingNetworkData.forEach((data) => {
-        const output: number[] = network.predict(data.inputs);
-        console.log(
-          `Inputs: ${data.inputs} => Output: ${output.map((o) => o.toFixed(2))}`
-        );
-      });
-    }
+  //   // Función para probar la red neuronal con los conjuntos de datos
+  //   function testNetwork(
+  //     network: NeuralNetwork,
+  //     testingNetworkData: TestingNetworkData[]
+  //   ): void {
+  //     testingNetworkData.forEach((data) => {
+  //       const output: number[] = network.predict(data.inputs);
+  //       console.log(
+  //         `Inputs: ${data.inputs} => Output: ${output.map((o) => o.toFixed(2))}`
+  //       );
+  //     });
+  //   }
 
-    // Entrenamiento y guardado para cada función lógica
-    neuralNetwork.train(AND_DATA, 'AND_TRAINING');
-    neuralNetwork.train(OR_DATA, 'OR_TRAINING');
-    neuralNetwork.train(XOR_DATA, 'XOR_TRAINING');
+  //   // Entrenamiento y guardado para cada función lógica
+  //   neuralNetwork.train(AND_DATA, 'AND_TRAINING');
+  //   neuralNetwork.train(OR_DATA, 'OR_TRAINING');
+  //   neuralNetwork.train(XOR_DATA, 'XOR_TRAINING');
 
-    // Cargar un entrenamiento específico y probar una entrada
-    console.log('\nPrueba de red cargando el entrenamiento AND_TRAINING:');
-    if (neuralNetwork.loadTraining('AND_TRAINING')) {
-      testNetwork(neuralNetwork, AND_DATA);
-    }
+  //   // Cargar un entrenamiento específico y probar una entrada
+  //   console.log('\nPrueba de red cargando el entrenamiento AND_TRAINING:');
+  //   if (neuralNetwork.loadTraining('AND_TRAINING')) {
+  //     testNetwork(neuralNetwork, AND_DATA);
+  //   }
 
-    console.log('\nPrueba de red cargando el entrenamiento OR_TRAINING:');
-    if (neuralNetwork.loadTraining('OR_TRAINING')) {
-      testNetwork(neuralNetwork, OR_DATA);
-    }
+  //   console.log('\nPrueba de red cargando el entrenamiento OR_TRAINING:');
+  //   if (neuralNetwork.loadTraining('OR_TRAINING')) {
+  //     testNetwork(neuralNetwork, OR_DATA);
+  //   }
 
-    console.log('\nPrueba de red cargando el entrenamiento XOR_TRAINING:');
-    if (neuralNetwork.loadTraining('XOR_TRAINING')) {
-      testNetwork(neuralNetwork, XOR_DATA);
-    }
-  }
+  //   console.log('\nPrueba de red cargando el entrenamiento XOR_TRAINING:');
+  //   if (neuralNetwork.loadTraining('XOR_TRAINING')) {
+  //     testNetwork(neuralNetwork, XOR_DATA);
+  //   }
+  // }
 }
 
 export function delay(ms: number): Promise<void> {

@@ -1,3 +1,9 @@
+/**
+ * Author: Pedro Martinez
+ * Email: id.pedromartinez@gmail.com
+ * Position: Senior Software Engineer
+ */
+
 export class ActivationFunctions {
   static sigmoid(x: number): number {
     return 1 / (1 + Math.exp(-x));
