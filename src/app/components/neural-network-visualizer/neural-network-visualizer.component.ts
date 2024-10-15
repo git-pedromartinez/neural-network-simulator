@@ -6,8 +6,15 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import XOR_TRAINING_history from './XOR_TRAINING_history.json';
 import { ZoomableCanvasDirective } from '../../directives/appZoomableCanvas';
+import {
+  NeuralNetworkConfig,
+  NeuralNetworkData,
+} from '@neural-network/src/models';
+import { NeuralNetwork } from '@neural-network/src/core';
+import { StorageManager, testNetwork } from '@neural-network/src/utils';
+import { XOR_TRAINING } from '@neural-network/src/examples/logical-functions/constants';
+import { XOR_DATA } from '@neural-network/src/examples/logical-functions/data';
 
 interface NeuronData {}
 interface NeuronPoint {
@@ -66,10 +73,19 @@ export class NeuralNetworkVisualizerComponent implements OnInit, AfterViewInit {
   }
 
   async loadTrainingData() {
-    this.data = XOR_TRAINING_history;
-    const sizes = this.data.metaData.sizes.slice(1)
+    this.data = this.startNetwork(
+      {
+        sizes: [2, 3, 1],
+        learningRate: 0.15,
+        epochs: 10,
+      },
+      XOR_DATA,
+      XOR_TRAINING
+    );
+
+    const sizes = this.data.metaData.sizes.slice(1);
     this.imaginaryHeight = (Math.max(...sizes) + 2) * 100;
-    this.imaginaryWidth = this.imaginaryHeight*1.2//(sizes.length + 1) * 100;
+    this.imaginaryWidth = this.imaginaryHeight * 1.2; //(sizes.length + 1) * 100;
     this.initializeControls();
   }
 
@@ -248,6 +264,26 @@ export class NeuralNetworkVisualizerComponent implements OnInit, AfterViewInit {
   reset(): void {
     // this.canvasZoom.reset();
     this.canvasZoom.centerCanvas(this.imaginaryWidth, this.imaginaryHeight);
+  }
 
+  startNetwork(
+    config: NeuralNetworkConfig,
+    data: NeuralNetworkData[],
+    name: string
+  ) {
+    let network = new NeuralNetwork(config);
+    network.trainingName = name;
+    network.errorThreshold = 0.001;
+    // network.showLogs = true;
+
+    network.train(data);
+    // network.saveTraining();
+
+    // network.loadTraining();
+    testNetwork(network, data);
+
+    return network.trainingHistory;
+
+    // return new StorageManager<any>().loadObject(name + '_history');
   }
 }
