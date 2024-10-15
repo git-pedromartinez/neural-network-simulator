@@ -101,39 +101,6 @@
           }
         }
       }
-    },
-    "neural-network": {
-      "projectType": "library",
-      "root": "projects/neural-network",
-      "sourceRoot": "projects/neural-network/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/neural-network/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/neural-network/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/neural-network/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/neural-network/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        }
-      }
     }
   },
   "cli": {
